@@ -1,4 +1,4 @@
-name := "PokemonInScala"
+name := "MonsterRPG_inScala"
 
 version := "0.1"
 

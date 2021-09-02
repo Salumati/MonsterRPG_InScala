@@ -19,7 +19,7 @@ It's a Pokémon inspired RPG battle game.
   - [x] add gitrepository
 - [ ] Version 1 (base game)
   - [ ] add base game:
-    - [ ] add damage calculator
+    - [x] add damage calculator
     - [ ] add four monsters with their own names, stats and movesets
     - [ ] add four element types (plant, fire, water, neutral)
     - [ ] add at least 4 moves
@@ -32,7 +32,7 @@ It's a Pokémon inspired RPG battle game.
   - [ ] add basic MVC architecture
   - [ ] initiate a continuous integration Server on Travis
   - [ ] Set up tests and code coverage using Coveralls
-  - [ ] imporve base game:
+  - [ ] improve base game:
     - [ ] add four additional monsters
     - [ ] allow player to create team of three monsters from set
     - [ ] include difficulty setting (by creating three AI types)
