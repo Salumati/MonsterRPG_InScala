@@ -2,13 +2,13 @@ package gameLogic
 
 case class Monster(name:String, stats:StatusValues, moveSet:List[Move], damage:Int = 0){
   // Strings
-  override def toString: String = s"$name, LP: $showLP"
+  override def toString: String = s"$name, $showLP"
   def showStatus: String = s"$name Status:\n" + "$stats"
   def showMoves: String = moveSet.toString
 
   // calculations
   def calcDamage: Int = stats.lifePoints - damage
-  def showLP: String = s"current LP: $calcDamage"
+  def showLP: String = s"LP: $calcDamage"
   def defeated: Boolean = calcDamage <= 0
 
   // behavior
