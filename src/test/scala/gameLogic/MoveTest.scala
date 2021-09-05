@@ -1,4 +1,5 @@
-import gameLogic.Move
+package gameLogic
+
 import org.scalatest.wordspec.AnyWordSpec
 
 class MoveTest extends AnyWordSpec{
