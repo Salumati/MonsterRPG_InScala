@@ -41,15 +41,16 @@ object Game {
     println("battle start:")
     var battle = Battle(monster, slime)
     do {
-      battle.toString
+      println(battle.toString)
       println("what will you do?\n" + "a = attack\n" + "q = quit")
       input = readLine()
       if(input == "a"){
         battle = battle.fight
-        battle.toString
+        println(battle.monster1.showLP)
+        println(battle.monster2.showLP)
       }
     }while(input != "q" || battle.endGame)
-    battle.defeatMessage
+    println(battle.defeatMessage)
 
   }
 }
