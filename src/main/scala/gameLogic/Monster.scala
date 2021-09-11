@@ -9,11 +9,11 @@ case class Monster(name:String, stats:StatusValues, moveSet:List[Move], damage:I
 
   // calculations
   def calcDamage: Int = stats.lifePoints - damage
-  def defeated: Boolean = calcDamage <= 0
+  def isDefeated: Boolean = calcDamage <= 0
 
   // behavior
   def attack(move:Move):Int = stats.attack + move.attack
-  def defend(dmg:Int):Monster = this.copy(damage = (stats.defense - dmg).abs)
+  def defend(dmg:Int):Monster = this.copy(damage = damage + (stats.defense - dmg).abs)
 }
 /*
   adtitional implimentation goals:

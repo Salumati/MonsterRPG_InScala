@@ -1,28 +1,51 @@
 package gameLogic
 
-case class Battle(monster1:Monster, monster2:Monster, round:Int = 1){
+case class Battle(playerMonster:Monster, enemyMonster:Monster, round:Int = 1){
   // String methods:
-  override def toString: String = s"$monster1 is fighting $monster2!"
-  def showMonster(m:Monster):String = m.toString
+  // general Strings
+  override def toString: String = s"$playerMonster is fighting $enemyMonster! (round: $round)"
+
+  // show monster:
+  def showMonster(m:Monster): String = m.toString
+  def showPlayerMonster: String = showMonster(playerMonster)
+  def showEnemyMonster: String = showMonster(enemyMonster)
+  // show stats
+  def showMonsterStat(m:Monster): String = s"${m.showStatus}"
+  def showPlayerMonStat: String = showMonsterStat(playerMonster)
+  def showEnemyMonStat: String = showMonsterStat(enemyMonster)
+  // show LP
+  def showMonsterLP(m:Monster): String = s"${m.showLP}"
+  def showPlayerMonLP: String = showMonsterLP(playerMonster)
+  def showEnemyMonLP: String = showMonsterLP(enemyMonster)
+  // show Moves:
   def showMonsterMoves(m:Monster):String = m.showMoves
+  def showPlayerMonMoves: String = showMonsterMoves(playerMonster)
+  def showEnemyMonMoves: String = showMonsterMoves(enemyMonster)
+  // defeat Message
   def defeatMessage:String = s"$getDefeatedMon has been defeated"
 
   // functionality
-  def battleOrder:List[Monster] = List(monster1, monster2).sortWith(_.stats.initiative > _.stats.initiative)
-  def monsterIsDefeated(monster:Monster): Boolean = monster.defeated
+  def battleOrder:List[Monster] = List(playerMonster, enemyMonster).sortWith(_.stats.initiative > _.stats.initiative)
+  def monsterIsDefeated(monster:Monster): Boolean = monster.isDefeated
   def monsterAttack(attackingMonster:Monster, defendingMonster:Monster): Monster = {
-    if(!attackingMonster.defeated) defendingMonster.defend(attackingMonster.attack(attackingMonster.moveSet.head))
+    if(!attackingMonster.isDefeated) defendingMonster.defend(attackingMonster.attack(attackingMonster.moveSet.head))
     else defendingMonster
+    // this should idealy include a text, but I am not sure where to include it.
   }
   // note: once special effects get added to Moves, the attacking Monster might change after attack as well
 
-  def endGame: Boolean = monster1.defeated || monster2.defeated
-  def getDefeatedMon: List[Monster] = List(monster2, monster1).filter(_.defeated)
+  def endGame: Boolean = playerMonster.isDefeated || enemyMonster.isDefeated
+  def getDefeatedMon: List[Monster] = List(enemyMonster, playerMonster).filter(_.isDefeated)
 
   def fight: Battle = {
+    val newEnMon = monsterAttack(playerMonster, enemyMonster)
+    val newPlMon = monsterAttack(enemyMonster, playerMonster)
+    /*
     val m1 = monsterAttack(attackingMonster = battleOrder.head, defendingMonster = battleOrder.last)
     val m2 = monsterAttack(attackingMonster = m1, defendingMonster = battleOrder.head)
-    this.copy(monster1 = m1, monster2 = m2, round = round + 1)
+     */
+    this.copy(playerMonster = newPlMon, enemyMonster = newEnMon, round = round + 1)
+    // todo: include proper battle order, based on int value
   }
 }
 /*

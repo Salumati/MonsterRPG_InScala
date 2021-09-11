@@ -46,8 +46,8 @@ object Game {
       input = readLine()
       if(input == "a"){
         battle = battle.fight
-        println(battle.monster1.showLP)
-        println(battle.monster2.showLP)
+        println(battle.playerMonster.showLP)
+        println(battle.enemyMonster.showLP)
       }
     }while(input != "q" || battle.endGame)
     println(battle.defeatMessage)
