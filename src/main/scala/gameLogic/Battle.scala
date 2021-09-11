@@ -3,11 +3,11 @@ package gameLogic
 case class Battle(playerMonster:Monster, enemyMonster:Monster, round:Int = 1){
   // String methods:
   // general Strings
-  override def toString: String = s"$playerMonster is fighting $enemyMonster! (round: $round)"
+  override def toString: String = s"Your $playerMonster is fighting $enemyMonster! (round: $round)"
 
   // show monster:
   def showMonster(m:Monster): String = m.toString
-  def showPlayerMonster: String = showMonster(playerMonster)
+  def showPlayerMonster: String = "Your " + showMonster(playerMonster)
   def showEnemyMonster: String = showMonster(enemyMonster)
   // show stats
   def showMonsterStat(m:Monster): String = s"${m.showStatus}"
@@ -35,6 +35,7 @@ case class Battle(playerMonster:Monster, enemyMonster:Monster, round:Int = 1){
   // note: once special effects get added to Moves, the attacking Monster might change after attack as well
 
   def endGame: Boolean = playerMonster.isDefeated || enemyMonster.isDefeated
+  def continueBattle: Boolean = !endGame
   def getDefeatedMon: List[Monster] = List(enemyMonster, playerMonster).filter(_.isDefeated)
 
   def fight: Battle = {

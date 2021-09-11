@@ -44,13 +44,14 @@ object Game {
       println(battle.toString)
       println("what will you do?\n" + "a = attack\n" + "q = quit")
       input = readLine()
+      println("input: " + input)
       if(input == "a"){
         battle = battle.fight
         println(battle.playerMonster.showLP)
         println(battle.enemyMonster.showLP)
         println(battle.endGame)
       }
-    }while(input != "q" || battle.endGame)
+    }while(input != "q" && battle.continueBattle)
     println(battle.defeatMessage)
 
   }
