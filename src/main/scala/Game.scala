@@ -48,6 +48,7 @@ object Game {
         battle = battle.fight
         println(battle.playerMonster.showLP)
         println(battle.enemyMonster.showLP)
+        println(battle.endGame)
       }
     }while(input != "q" || battle.endGame)
     println(battle.defeatMessage)

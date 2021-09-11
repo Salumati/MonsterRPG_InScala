@@ -39,7 +39,7 @@ case class Battle(playerMonster:Monster, enemyMonster:Monster, round:Int = 1){
 
   def fight: Battle = {
     val newEnMon = monsterAttack(playerMonster, enemyMonster)
-    val newPlMon = monsterAttack(enemyMonster, playerMonster)
+    val newPlMon = monsterAttack(newEnMon, playerMonster)
     /*
     val m1 = monsterAttack(attackingMonster = battleOrder.head, defendingMonster = battleOrder.last)
     val m2 = monsterAttack(attackingMonster = m1, defendingMonster = battleOrder.head)
