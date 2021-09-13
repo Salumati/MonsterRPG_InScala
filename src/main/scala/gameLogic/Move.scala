@@ -2,7 +2,8 @@ package gameLogic
 
 // create moves
 case class Move(name:String, attack:Int=50){
-  override def toString:String =
+  override def toString:String = name
+  def showMoveStat: String =
       s"$name \n" +
       s"attack: $attack"
 }

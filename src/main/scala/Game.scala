@@ -13,8 +13,8 @@ object Game {
     val tackle = Move("Tackle")
     val hardHit = Move("Hard Hit", attack = 100)
 
-    val slimeMoves = List(slash, tackle)
-    val rabbitMoves = List(tackle, hardHit)
+    val slimeMoves = List(slash, tackle).toArray
+    val rabbitMoves = List(tackle, hardHit).toArray
 
     // create StatusValues
     val slimeStats = StatusValues(lifePoints = 100, attack = 50, defense = 50, initiative = 50)
