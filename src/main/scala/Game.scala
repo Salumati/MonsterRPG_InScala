@@ -24,7 +24,8 @@ object Game {
     println("creating Monsters")
     val slime = Monster("Slime", slimeStats, slimeMoves)
     val rabbit = Monster("Rabbit", rabbitStats, rabbitMoves)
-    val monsters = Array(slime, rabbit)
+    val allMonsters = List(slime, rabbit)
+    val monsters = allMonsters.toArray
     println("created Monsters")
 
 
@@ -33,13 +34,21 @@ object Game {
     s"1. $slime\n" +
     s"2. $rabbit")
     var input = readLine()
-    // validate value!
-    val monster = monsters(input.toInt - 1)
-    println(s"you chose $monster!")
+    // todo: validate value!
+    val playerMonster = monsters(input.toInt - 1)
+    println(s"you chose $playerMonster!")
+
+    // chose enemy:
+    println("choose your enemy (type in number):")
+    println(
+      s"1. $slime\n" +
+      s"2. $rabbit")
+    input = readLine()
+    val enemyMonster = monsters(input.toInt -1)
 
     // start battle
     println("battle start:")
-    var battle = Battle(monster, slime)
+    var battle = Battle(playerMonster, enemyMonster)
     do {
       println(battle.toString)
       println("what will you do?\n" + "a = attack\n" + "q = quit")
