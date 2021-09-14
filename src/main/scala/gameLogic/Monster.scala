@@ -1,6 +1,6 @@
 package gameLogic
 
-case class Monster(name:String, stats:StatusValues, moveSet:Array[Move], damage:Int = 0){
+case class Monster(name:String, stats:StatusValues, moveSet:List[Move], damage:Int = 0){
   // Strings
   override def toString: String = s"$name"
   def showLP: String = s"$name: $calcDamage LP"
