@@ -59,7 +59,13 @@ object Game {
       input = readLine()
       println("input: " + input)
       if(input == "a"){
-        battle = battle.fight
+        println(s"what should ${battle.showPlayerMonster} do?")
+        println(battle.showPlayerMonMoves)
+        input = readLine()
+        // todo: check if input is actually a number!
+        var playerAction = battle.getPlayerAction(input.toInt)
+        println(s"you chose $input, which is $playerAction")
+        battle = battle.fight(playerAction)
         println(battle.playerMonster.showLP)
         println(battle.enemyMonster.showLP)
         println(battle.endGame)

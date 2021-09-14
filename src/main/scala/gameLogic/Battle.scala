@@ -3,7 +3,7 @@ package gameLogic
 case class Battle(playerMonster:Monster, enemyMonster:Monster, round:Int = 1){
   // String methods:
   // general Strings
-  override def toString: String = s"Your $playerMonster is fighting $enemyMonster! (round: $round)"
+  override def toString: String = s"Your $playerMonster is fighting $showEnemyMonster! (round: $round)"
 
   // show monster:
   def showMonster(m:Monster): String = m.toString
@@ -22,15 +22,21 @@ case class Battle(playerMonster:Monster, enemyMonster:Monster, round:Int = 1){
   def showPlayerMonMoves: String = showMonsterMoves(playerMonster)
   def showEnemyMonMoves: String = showMonsterMoves(enemyMonster)
   // defeat Message
-  def defeatMessage:String = s"$getDefeatedMon has been defeated"
+  def defeatMessage:String = s"${getDefeatedMon.head.toString} has been defeated"
 
   // functionality
   def battleOrder:List[Monster] = List(playerMonster, enemyMonster).sortWith(_.stats.initiative > _.stats.initiative)
+  // todo: check if battleOrder is even necessary
+  def doesPlayerGoFirst: Boolean = playerMonster.stats.initiative >= enemyMonster.stats.initiative
   def monsterIsDefeated(monster:Monster): Boolean = monster.isDefeated
-  def monsterAttack(attackingMonster:Monster, defendingMonster:Monster): Monster = {
-    if(!attackingMonster.isDefeated) defendingMonster.defend(attackingMonster.attack(attackingMonster.moveSet.head))
+
+  def getPlayerAction(move:Int):Move = playerMonster.chooseMove(move)
+  def monsterAttack(attackingMonster:Monster, defendingMonster:Monster, usedMove:Move): Monster = {
+    // calculate attack, return the monster that was attacked.
+    if(!attackingMonster.isDefeated) defendingMonster.defend(attackingMonster.attack(usedMove))
     else defendingMonster
     // this should idealy include a text, but I am not sure where to include it.
+    // todo: this ins't very readable, maybe we can rephrase this somehow
   }
   // note: once special effects get added to Moves, the attacking Monster might change after attack as well
 
@@ -38,16 +44,30 @@ case class Battle(playerMonster:Monster, enemyMonster:Monster, round:Int = 1){
   def continueBattle: Boolean = !endGame
   def getDefeatedMon: List[Monster] = List(enemyMonster, playerMonster).filter(_.isDefeated)
 
-  def fight: Battle = {
-    val newEnMon = monsterAttack(playerMonster, enemyMonster)
-    val newPlMon = monsterAttack(newEnMon, playerMonster)
-    /*
-    val m1 = monsterAttack(attackingMonster = battleOrder.head, defendingMonster = battleOrder.last)
-    val m2 = monsterAttack(attackingMonster = m1, defendingMonster = battleOrder.head)
-     */
+  def nextRound: Battle = this.copy(round = round+1)
+
+  def fight(playerMove:Move): Battle = {
+    var newPlMon = playerMonster
+    var newEnMon = enemyMonster
+    if(doesPlayerGoFirst){
+      // player goes first
+      newEnMon  = monsterAttack(playerMonster, enemyMonster, playerMove)
+      newPlMon = monsterAttack(newEnMon, playerMonster, enemyMonster.chooseMove(1))
+    } else {
+      // enemy goes first
+      newPlMon = monsterAttack(enemyMonster, playerMonster, enemyMonster.chooseMove(1))
+      newEnMon = monsterAttack(newPlMon, enemyMonster, playerMove)
+    }
     this.copy(playerMonster = newPlMon, enemyMonster = newEnMon, round = round + 1)
-    // todo: include proper battle order, based on int value
   }
+  /*
+  Battle order:
+  1st Both monsters choose a move
+  2nd determine who goes first (usually the one with the higher initiative, but attack effects could changes this
+  -> it might be usefull to have a higher order class handle the different
+  3rd calculate damage
+  4th start next round
+   */
 }
 /*
   adtitional implimentation goals:
