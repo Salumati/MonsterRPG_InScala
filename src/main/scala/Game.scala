@@ -4,6 +4,7 @@ import scala.io.StdIn.readLine
 
 object Game {
   def main(args: Array[String]): Unit ={
+
     println("Welcome to Monster RPG!")
 
     // create elements:
@@ -25,14 +26,19 @@ object Game {
     val slime = Monster("Slime", slimeStats, slimeMoves)
     val rabbit = Monster("Rabbit", rabbitStats, rabbitMoves)
     val allMonsters = List(slime, rabbit)
-    val monsters = allMonsters.toArray
+    val monsters = allMonsters
     println("created Monsters")
 
 
     // choose monster team:
-    println("choose your monster (type in the appropriate number):\n" +
-    s"1. $slime\n" +
-    s"2. $rabbit")
+    def showContent(seq:Seq[Any]): String = {
+      var output = ""
+      seq.zipWithIndex.foreach{case(move, count) => output += s"${count+1}) ${move.toString} \n"}
+      output
+    }
+    println("choose your monster (type in number):")
+    println(showContent(monsters))
+
     var input = readLine()
     // todo: validate value!
     val playerMonster = monsters(input.toInt - 1)
@@ -40,9 +46,7 @@ object Game {
 
     // chose enemy:
     println("choose your enemy (type in number):")
-    println(
-      s"1. $slime\n" +
-      s"2. $rabbit")
+    println(showContent(monsters))
     input = readLine()
     val enemyMonster = monsters(input.toInt -1)
 

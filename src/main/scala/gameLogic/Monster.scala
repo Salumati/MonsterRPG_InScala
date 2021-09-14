@@ -2,7 +2,7 @@ package gameLogic
 
 case class Monster(name:String, stats:StatusValues, moveSet:List[Move], damage:Int = 0){
   // Strings
-  override def toString: String = s"$name"
+  override def toString: String = name
   def showLP: String = s"$name: $calcDamage LP"
   def showStatus: String = s"$name Status:\n" + "$stats"
   def showMoves: String = {
