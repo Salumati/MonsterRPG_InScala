@@ -8,7 +8,7 @@ case class Battle(playerMonster:Monster, enemyMonster:Monster, round:Int = 1){
   // show monster:
   def showMonster(m:Monster): String = m.toString
   def showPlayerMonster: String = "Your " + showMonster(playerMonster)
-  def showEnemyMonster: String = showMonster(enemyMonster)
+  def showEnemyMonster: String = "enemy " + showMonster(enemyMonster)
   // show stats
   def showMonsterStat(m:Monster): String = s"${m.showStatus}"
   def showPlayerMonStat: String = showMonsterStat(playerMonster)
