@@ -20,12 +20,12 @@ It's a Pokémon inspired RPG battle game.
 - [ ] Version 1 (base game)
   - [ ] add base game:
     - [x] add damage calculator
-    - [ ] add four monsters with their own names, stats and movesets
-    - [ ] add four element types (plant, fire, water, neutral)
-    - [ ] add at least 4 moves
+    - [x] add four monsters with their own names, stats and movesets
+    - [x] add four element types (plant, fire, water, neutral)
+    - [x] add at least 4 moves
     - [ ] add basic enemy AI
-    - [ ] create basic game loop (1v1 battles, choosable player monster, random opponent)
-    - [ ] add basic TUI
+    - [x] create basic game loop (1v1 battles, choosable player monster, random opponent)
+    - [x] add basic TUI
   - [ ] add tests for base game
   - [ ] add instructions
 - [ ] Version 2 (architecture and game improvements)
@@ -33,11 +33,9 @@ It's a Pokémon inspired RPG battle game.
   - [ ] initiate a continuous integration Server on Travis
   - [ ] Set up tests and code coverage using Coveralls
   - [ ] improve base game:
-    - [ ] add four additional monsters
     - [ ] allow player to create team of three monsters from set
     - [ ] include difficulty setting (by creating three AI types)
     - [ ] allow for player and monsters to be renamed
-    - [ ] add at least 4 aditional moves.
   - [ ] add tests for new functionalities (archive 100% test coverage)
 - [ ] Version 3 (Design Patterns, game improvements)
 - [ ] Version 4 (GUI)
