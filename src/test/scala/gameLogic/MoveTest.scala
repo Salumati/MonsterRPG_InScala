@@ -3,7 +3,8 @@ package gameLogic
 import org.scalatest.wordspec.AnyWordSpec
 
 class MoveTest extends AnyWordSpec{
-  val move: Move = Move("moveName", 20)
+  val element: Element = Element("Element")
+  val move: Move = Move("moveName", 20, element)
   "A Move" must {
     "have a name" in {
       assert(move.name.isInstanceOf[String])

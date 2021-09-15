@@ -1,4 +1,4 @@
-import gameLogic.{Battle, Monster, Move, StatusValues}
+import gameLogic.{Battle, Element, Monster, Move, StatusValues}
 
 import scala.io.StdIn.readLine
 
@@ -8,25 +8,50 @@ object Game {
     println("Welcome to Monster RPG!")
 
     // create elements:
+    val neutral = Element("Neutral")
+    val water = Element("Water", List("Plant"), List("Fire"))
+    val plant = Element("Plant", List("Fire"), List("Water"))
+    val fire = Element("Fire", List("Water"), List("Plant"))
 
-    // create moves
-    val slash = Move("Slash", attack = 40)
-    val tackle = Move("Tackle")
-    val hardHit = Move("Hard Hit", attack = 100)
+    // neutral moves
+    val tackle = Move("Tackle", element = neutral)
+    val hardHit = Move("Hard Hit", attack = 100, neutral)
 
-    val slimeMoves = List(slash, tackle)
-    val rabbitMoves = List(tackle, hardHit)
+    // water moves
+    val bubble = Move("Bubble", attack=40, water)
+    val hydrogun = Move("Hydrogrun", attack=80, water)
+    // mudsplash: lowers enemy init
 
-    // create StatusValues
+    // plant moves
+    val vineWhip = Move("Vine Whip", attack = 40, plant)
+    val leafBlade = Move("Leaf Blade", attack = 80, plant)
+    // include healing move (honeydew)
+    // include def up move (barkshield)
+
+    // fire moves
+    val ember = Move("Ember", attack = 40, fire)
+    val flameThrower = Move("Flame Thrower", attack = 80, element = fire)
+    // include move that increases attack
+    // include move that increases init
+
+    // make monster move list
+    val slimeMoves = List(tackle, bubble, vineWhip, ember)
+    val rabbitMoves = List(tackle, hardHit, ember, flameThrower)
+    val dinoMoves = List(tackle, hardHit, vineWhip, leafBlade)
+    val snakeMoves = List(tackle, bubble, hydrogun, vineWhip)
+
+    // make monster stats
     val slimeStats = StatusValues(lifePoints = 100, attack = 50, defense = 50, initiative = 50)
     val rabbitStats = StatusValues(lifePoints = 80, attack = 65, defense = 30, initiative = 75)
+    val dinoStats = StatusValues(lifePoints = 100, attack = 50, defense = 70, initiative = 20)
+    val snakeStats = StatusValues(lifePoints = 100, attack = 65, defense = 65, initiative = 50)
 
-    // create monsters
-    println("creating Monsters")
-    val slime = Monster("Slime", slimeStats, slimeMoves)
-    val rabbit = Monster("Rabbit", rabbitStats, rabbitMoves)
-    val allMonsters = List(slime, rabbit)
-    val monsters = allMonsters
+    // make monsters
+    val slime = Monster("Slime", slimeStats, slimeMoves, neutral)
+    val rabbit = Monster("Rabbit", rabbitStats, rabbitMoves, fire)
+    val dino = Monster("Dino", dinoStats, dinoMoves, plant)
+    val snake = Monster("Snake", snakeStats, snakeMoves, water)
+    val monsters = List(slime, rabbit, snake, dino)
     println("created Monsters")
 
 

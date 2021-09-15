@@ -33,7 +33,7 @@ case class Battle(playerMonster:Monster, enemyMonster:Monster, round:Int = 1){
   def getPlayerAction(move:Int):Move = playerMonster.chooseMove(move)
   def monsterAttack(attackingMonster:Monster, defendingMonster:Monster, usedMove:Move): Monster = {
     // calculate attack, return the monster that was attacked.
-    if(!attackingMonster.isDefeated) defendingMonster.defend(attackingMonster.attack(usedMove))
+    if(!attackingMonster.isDefeated) defendingMonster.defend((attackingMonster.attack(usedMove) * defendingMonster.getDefenseBonus(usedMove)).toInt)
     else defendingMonster
     // this should idealy include a text, but I am not sure where to include it.
     // todo: this ins't very readable, maybe we can rephrase this somehow
